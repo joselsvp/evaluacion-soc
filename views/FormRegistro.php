@@ -215,6 +215,7 @@ require_once 'nav.php' ?>
         </div>
     </div>
 </div>
+<script src="/assets/app.js" defer></script>
 
 </body>
 </html>

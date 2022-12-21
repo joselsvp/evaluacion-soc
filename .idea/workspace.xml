@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="38a42d7d-342f-402a-8c30-71cd453cfc00" name="Changes" comment="add: sweetalert2&#10;&#10;add: validation fields">
+    <list default="true" id="38a42d7d-342f-402a-8c30-71cd453cfc00" name="Changes" comment="add: validations to return response register">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/FormController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/FormController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/FormRegistro.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/FormRegistro.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/UsuariosTabla.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/UsuariosTabla.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/nav.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/nav.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +57,7 @@
       <workItem from="1671507046035" duration="186000" />
       <workItem from="1671507267701" duration="8259000" />
       <workItem from="1671552448550" duration="6176000" />
-      <workItem from="1671562697694" duration="40089000" />
+      <workItem from="1671562697694" duration="40588000" />
     </task>
     <task id="LOCAL-00001" summary="add: form register users">
       <created>1671583024984</created>
@@ -103,7 +101,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671610856822</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add: validations to return response register">
+      <created>1671614580895</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1671614580895</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -126,6 +131,7 @@
     <MESSAGE value="add: view users registers table" />
     <MESSAGE value="add: data to view for recover data user" />
     <MESSAGE value="add: sweetalert2&#10;&#10;add: validation fields" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: sweetalert2&#10;&#10;add: validation fields" />
+    <MESSAGE value="add: validations to return response register" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: validations to return response register" />
   </component>
 </project>

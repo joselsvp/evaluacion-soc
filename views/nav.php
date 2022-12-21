@@ -8,7 +8,6 @@
 
     <!----======== CSS ======== -->
     <link rel="stylesheet" href="/assets/main.css">
-    <script src="/assets/app.js" defer></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
