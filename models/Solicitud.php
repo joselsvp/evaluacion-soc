@@ -135,4 +135,17 @@ class Solicitud{
 
         return "Se ha guardado el registro";
     }
+
+    public function getRegisteredApplicants(){
+        $sql = 'select s.id, s.folio, CONCAT(u.nombre, " ", u.apellido) AS nombre_completo, tpt.nombre as tipo_tramite, s.fecha_registro from solicitudes s 
+                inner join usuario u on u.id = s.id_usuario
+                inner join tipo_tramite tpt on tpt.id = s.tipo_tramite
+                order by s.fecha_registro desc';
+
+        $statement = Connection::getConnection()->prepare($sql);
+
+        $statement->setFetchMode(\PDO::FETCH_ASSOC);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
 }

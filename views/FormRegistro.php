@@ -9,7 +9,12 @@ require_once 'nav.php'
 ?>
 
 <div class="container">
-    <div class="title">Simulador SOC</div>
+    <div class="content-button">
+        <a class="button-users" href="/usuario/show">Ver solicitudes</a>
+    </div>
+
+    <div class="title">Simulador SOC
+    </div>
     <div class="content first-step">
         <div class="inf-details">
             <div class="input-box">

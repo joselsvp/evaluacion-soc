@@ -12,6 +12,10 @@ body{
     padding: 10px;
     background: #F8FAFC;
 }
+
+a:link { text-decoration: none; }
+
+
 .container{
     max-width: 1400px;
     width: 100%;
@@ -90,9 +94,32 @@ body{
 input[type="radio"]{
     display: none;
 }
+.content-button{
+    text-align: right;
+}
+
 .button{
     height: 45px;
-    margin: 35px 0
+    margin: 35px 0;
+    cursor: pointer;
+}
+
+.button-users , .button-edit-user{
+    background: #6c15d7;
+    padding: 10px;
+    border-radius: 0.3rem;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.button-edit-user{
+    background: #2680fd;
+    padding: 6px;
+    font-size: 14px;
+}
+
+.button-users:hover{
+    background: #8a29ff;
 }
 .button input{
     height: 100%;
@@ -105,12 +132,42 @@ input[type="radio"]{
     letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s ease;
-    background: #0076FF;
+    background: #0462d5;
 }
+
 .button input:hover{
-    /* trans  scale(0.99); */
-    background: #0076FF;
+    background: #0b77ea;
 }
+
+.center-content-users{
+    text-align: center;
+    color: darkslategrey;
+}
+
+#customers {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #476aea;
+    color: white;
+}
+
 @media(max-width: 584px){
     .container{
         max-width: 100%;

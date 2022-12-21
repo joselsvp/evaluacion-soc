@@ -17,7 +17,6 @@ class FormController{
      * @throws Exception
      */
     public function save(){
-        error_log(print_r($_POST, true));
         $now = new DateTime();
         $fecha_nacimiento = new DateTime($_POST['fecha_nacimiento']);
 
@@ -50,7 +49,7 @@ class FormController{
 
         $solicitud = new Solicitud();
         $solicitud->setFolio(332);
-        $solicitud->setFechaRegistro($now->format('Y-m-d'));
+        $solicitud->setFechaRegistro($now->format('Y-m-d H:i:s'));
         $solicitud->setTipoTramite($_POST['tipo_tramite']);
         $solicitud->setMontoSolicitado($_POST['monto']);
         $solicitud->setPlazoSolicitado($_POST['plazo']);

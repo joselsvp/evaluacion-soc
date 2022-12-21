@@ -1,4 +1,5 @@
 <?php
+require_once 'models/Solicitud.php';
 
 class UsuarioController{
 
@@ -7,7 +8,7 @@ class UsuarioController{
 
 
     public function show(){
-
+        $getRegisteredApplicants = (new Solicitud())->getRegisteredApplicants();
         require_once 'views/UsuariosTabla.php';
     }
 
