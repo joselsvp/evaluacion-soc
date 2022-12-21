@@ -8,7 +8,7 @@ require_once 'models/Usuario.php';
 require_once 'models/IngresosUsuario.php';
 require_once 'models/Solicitud.php';
 
-class formController{
+class FormController{
 
     public function __construct(){
     }
@@ -65,7 +65,7 @@ class formController{
         $estados = (new Estado())->findAll();
         $municipios = (new Municipio())->findAll();
 
-        require_once 'views/SolicitudIndex.php';
+        require_once 'views/FormRegistro.php';
     }
 
 }
