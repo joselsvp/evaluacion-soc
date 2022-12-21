@@ -94,5 +94,33 @@ window.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
+    function municipios(id_estado){
+        let formDataMunicipios = new FormData();
+        formDataMunicipios.append('id_estado', id_estado);
+
+        fetch('/municipio/find', {
+            method: 'POST',
+            body: formDataMunicipios,
+            processData: false,
+            contentType: false,
+        })
+            .then((resp) => resp.json())
+            .then(function (response) {
+                response.forEach(element =>
+                    document.getElementById("municipio").insertAdjacentHTML('beforeend',
+                        `<option value = "${element.id_municipio}">${element.nombre_municipio}</option>>`
+                    )
+                )
+            })
+    }
+
+    document.getElementById("municipio").options.length = 0;
+
+    document.querySelector("#estado").addEventListener('click', function () {
+        document.getElementById("municipio").options.length = 0;
+
+        municipios(document.querySelector("#estado").value);
+    })
+
 });
 
