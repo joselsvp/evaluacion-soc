@@ -35,6 +35,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
             return false;
         }
 
+        let validarCorreo = validarEmail(document.querySelector("#correo").value);
+
+        if(!validarCorreo){
+            return false;
+        }
+
 
         if(vacio("#tipo_tramite", "El campo tipo trámite") || vacio("#monto", "El campo monto") || vacio("#plazo", "El campo plazo") ||
             vacio("#nombre", "El campo nombre(s)") || vacio("#apellido", "El campo apellido(s)") || vacio("#correo", "El campo correo") ||
@@ -205,7 +211,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 else{
                     return true;
                 }
-                default:
+            default:
                 Swal.fire({
                     position: 'top-end',
                     icon: 'error',
@@ -213,7 +219,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                     showConfirmButton: false,
                     timer: 1000
                 })
-                break;
+            break;
         }
     }
 
@@ -238,6 +244,24 @@ window.addEventListener('DOMContentLoaded', (event) => {
                     )
                 )
             })
+    }
+
+    function validarEmail(valor) {
+        console.log(valor)
+        var validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+
+        if (!validEmail.test(valor)){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: "El correo electrónico no es correcto",
+                showConfirmButton: false,
+                timer: 1000
+            })
+            return false;
+        }else{
+            return true;
+        }
     }
 
     if(!(is_update == 1 && id_usuario > 0)){
