@@ -4,8 +4,6 @@
     <list default="true" id="38a42d7d-342f-402a-8c30-71cd453cfc00" name="Changes" comment="add: validations to return response register">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/FormController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/FormController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/FormRegistro.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/FormRegistro.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/nav.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/nav.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +55,7 @@
       <workItem from="1671507046035" duration="186000" />
       <workItem from="1671507267701" duration="8259000" />
       <workItem from="1671552448550" duration="6176000" />
-      <workItem from="1671562697694" duration="40588000" />
+      <workItem from="1671562697694" duration="40954000" />
     </task>
     <task id="LOCAL-00001" summary="add: form register users">
       <created>1671583024984</created>
@@ -108,7 +106,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671614580895</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add: validations to return response register">
+      <created>1671615107642</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1671615107642</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -39,7 +39,7 @@ class FormController{
         $usuario->setIdCatMunicipio($_POST['municipio']);
 
         if($is_update == 1 && $id_usuario > 0){
-            $usuario->updateById($id_usuario);
+            $actualizar_usuario = $usuario->updateById($id_usuario);
         }else{
 
             $usuario->setFechaRegistro($now->format('Y-m-d'));
@@ -58,7 +58,7 @@ class FormController{
         $ingresosUsuario->setTipoEmpleo($_POST['tipo_empleo']);
         $ingresosUsuario->setFechaInicio($fecha_inicio_trabajo->format('Y-m-d'));
         if($is_update == 1 && $id_usuario > 0){
-            $ingresosUsuario->updateById($id_usuario);
+            $actualizar_ingresos = $ingresosUsuario->updateById($id_usuario);
         }else{
             $ingresosUsuario->setIdUsuario($usuario->getId());
             error_log(print_r($ingresosUsuario, true));
@@ -70,21 +70,31 @@ class FormController{
         $solicitud->setTipoTramite($_POST['tipo_tramite']);
         $solicitud->setMontoSolicitado($_POST['monto']);
         $solicitud->setPlazoSolicitado($_POST['plazo']);
+        $solicitud->setFechaRegistro($now->format('Y-m-d H:i:s'));
+
         if($is_update == 1 && $id_usuario > 0){
-            $solicitud->updateById($id_usuario);
+            $actualizar_solicitud = $solicitud->updateById($id_usuario);
         }else{
-            $solicitud->setFechaRegistro($now->format('Y-m-d H:i:s'));
             $solicitud->setFolio( uniqid('',true).rand(1,99));
             $solicitud->setIdUsuario($usuario->getId());
             error_log(print_r($solicitud, true));
 
             $guardar_solicitud = $solicitud->save();
         }
-        if($guardar_usuario && $guardar_ingresos && $guardar_solicitud){
-            $data = ['folio' => $solicitud->getFolio(), 'message' => 'Solicitud registrada correctamente', 'type' => 'success'];
+        if($is_update == 1 && $id_usuario > 0){
+            if($actualizar_usuario && $actualizar_ingresos && $actualizar_solicitud){
+                $data = ['folio' => '', 'message' => 'Solicitud actualizada correctamente', 'type' => 'success'];
+            }else{
+                $data = ['folio' => $solicitud->getFolio(), 'message' => 'Ha ocurrido para actualizar su información', 'type' => 'error'];
+            }
         }else{
-            $data = ['folio' => $solicitud->getFolio(), 'message' => 'Ha ocurrido para generar su solicitud', 'type' => 'error'];
+            if($guardar_usuario && $guardar_ingresos && $guardar_solicitud ){
+                $data = ['folio' => $solicitud->getFolio(), 'message' => 'Solicitud registrada correctamente', 'type' => 'success'];
+            }else{
+                $data = ['folio' => $solicitud->getFolio(), 'message' => 'Ha ocurrido para generar su solicitud', 'type' => 'error'];
+            }
         }
+
         header('Content-Type: application/json');
 
         echo json_encode($data);
