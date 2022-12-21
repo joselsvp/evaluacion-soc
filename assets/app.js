@@ -53,9 +53,31 @@ window.addEventListener('DOMContentLoaded', (event) => {
             processData: false,
             contentType: false,
         })
-            .then((resp) => resp.text())
+            .then((resp) => resp.json())
             .then(function (response) {
-                console.log(response);
+                if(response.type == 'success'){
+                    Swal.fire({
+                        icon: response.type,
+                        title: response.message + "\n con el folio: " + response.folio,
+                        showConfirmButton: true,
+                    }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        console.log(result)
+                        if(result.isConfirmed){
+                            window.setTimeout(function (){
+                                window.location.href = "/usuario/show";
+                            },1000)
+                        }
+                    })
+                }else{
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: response.message,
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                }
             })
     });
 

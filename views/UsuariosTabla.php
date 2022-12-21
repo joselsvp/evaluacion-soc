@@ -32,7 +32,7 @@ require_once 'nav.php';
         </table>
         <?php
     }else{ ?>
-        <h5 class="center-content-users">Lo sentimos, por el momentos no hay solicitantes registrados</h5>
+        <h5 class="center-content-users">Lo sentimos, por el momento no hay solicitantes registrados</h5>
         <?php
     } ?>
 </div>

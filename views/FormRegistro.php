@@ -7,15 +7,15 @@ $getMunicipios = $municipios;
 $datos_usuario = array();
 $id_usuario = 0;
 $is_update = 0;
+
 if(isset($isEdit)){
     $datos_usuario = $solicitudUsuario;
     $id_usuario = $datos_usuario['id_usuario'];
     $is_update = 1;
+    $id_usuario = $datos_usuario['id_usuario'];
 }
 
-require_once 'nav.php'
-?>
-
+require_once 'nav.php' ?>
 <div class="container">
     <div class="content-button">
         <a class="button-users" href="/usuario/show">Ver solicitudes</a>
@@ -211,7 +211,7 @@ require_once 'nav.php'
             </div>
         </div>
         <div class="button">
-            <input type="button" class="send_data_form" value="Registrar" id-usuario = '<?= $id_usuario ?>' is-update = '<?= $isEdit ?>'>
+            <input type="button" class="send_data_form" value="Registrar" id-usuario = '<?= $id_usuario ?>' is-update = '<?= $is_update ?>'>
         </div>
     </div>
 </div>

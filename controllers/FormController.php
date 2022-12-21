@@ -1,4 +1,7 @@
 <?php
+
+use database\Connection;
+
 require_once 'models/TipoTramite.php';
 require_once 'models/TipoEmpleo.php';
 require_once 'models/TipoComprobanteIngreso.php';
@@ -22,53 +25,67 @@ class FormController{
         $fecha_inicio_trabajo = new DateTime($_POST['fecha_inicio_trabajo']);
         $is_update = $_POST['is_update'];
         $id_usuario = $_POST['id_usuario'];
+        try {
+            Connection::getConnection()->beginTransaction();
 
-        $usuario = new Usuario();
-        $usuario->setNombre($_POST['nombre_cliente']);
-        $usuario->setApellido($_POST['apellido_cliente']);
-        $usuario->setEdad($_POST['edad']);
-        $usuario->setCorreo($_POST['correo']);
-        $usuario->setFechaNacimiento($fecha_nacimiento->format('Y-m-d'));
-        $usuario->setCurp($_POST['curp_cliente']);
-        $usuario->setSexo($_POST['genero']);
-        $usuario->setCodigoPostal($_POST['cod_postal']);
-        $usuario->setCalle($_POST['calle']);
-        $usuario->setIdCatMunicipio($_POST['municipio']);
-        $usuario->setFechaRegistro($now->format('Y-m-d'));
-        $usuario->setFechaActualizacion($now->format('Y-m-d'));
-        if($is_update == 1 && $id_usuario > 0){
-            $usuario->updateById($id_usuario);
-        }else{
-            $usuario->save();
+            $usuario = new Usuario();
+            $usuario->setNombre($_POST['nombre_cliente']);
+            $usuario->setApellido($_POST['apellido_cliente']);
+            $usuario->setEdad($_POST['edad']);
+            $usuario->setCorreo($_POST['correo']);
+            $usuario->setFechaNacimiento($fecha_nacimiento->format('Y-m-d'));
+            $usuario->setCurp($_POST['curp_cliente']);
+            $usuario->setSexo($_POST['genero']);
+            $usuario->setCodigoPostal($_POST['cod_postal']);
+            $usuario->setCalle($_POST['calle']);
+            $usuario->setIdCatMunicipio($_POST['municipio']);
+
+            if($is_update == 1 && $id_usuario > 0){
+                $usuario->updateById($id_usuario);
+            }else{
+                $usuario->setFechaRegistro($now->format('Y-m-d'));
+                $usuario->setFechaActualizacion($now->format('Y-m-d'));
+                $guardar_usuario = $usuario->save();
+            }
+
+            $ingresosUsuario = new IngresosUsuario();
+
+            $ingresosUsuario->setNombreEmpresa($_POST['nombre_empresa']);
+            $ingresosUsuario->setTipoComprobanteIngreso($_POST['tipo_comprobante']);
+            $ingresosUsuario->setSalarioBrutoMensual($_POST['salario_bruto_mensual']);
+            $ingresosUsuario->setSalarioNetoMensual($_POST['salario_neto_mensual']);
+            $ingresosUsuario->setTipoEmpleo($_POST['tipo_empleo']);
+            $ingresosUsuario->setFechaInicio($fecha_inicio_trabajo->format('Y-m-d'));
+            if($is_update == 1 && $id_usuario > 0){
+                $ingresosUsuario->updateById($id_usuario);
+            }else{
+                $ingresosUsuario->setIdUsuario($usuario->getId());
+                $guardar_ingresos = $ingresosUsuario->save();
+            }
+
+            $solicitud = new Solicitud();
+            $solicitud->setTipoTramite($_POST['tipo_tramite']);
+            $solicitud->setMontoSolicitado($_POST['monto']);
+            $solicitud->setPlazoSolicitado($_POST['plazo']);
+            if($is_update == 1 && $id_usuario > 0){
+                $solicitud->updateById($id_usuario);
+            }else{
+                $solicitud->setFechaRegistro($now->format('Y-m-d H:i:s'));
+                $solicitud->setFolio( uniqid('',true).rand(1,99));
+                $solicitud->setIdUsuario($usuario->getId());
+                $guardar_solicitud = $solicitud->save();
+            }
+            if($guardar_usuario && $guardar_ingresos && $guardar_solicitud){
+                $data = ['folio' => $solicitud->getFolio(), 'message' => 'Solicitud registrada correctamente', 'type' => 'success'];
+            }else{
+                $data = ['folio' => $solicitud->getFolio(), 'message' => 'Ha ocurrido para generar su solicitud', 'type' => 'error'];
+            }
+            header('Content-Type: application/json');
+        } catch (\Exception $e) {
+            Connection::getConnection()->rollBack();
+            $data = ['folio' => '', 'message' => $e->getMessage(), 'type' => 'error'];
         }
-
-        $ingresosUsuario = new IngresosUsuario();
-
-        $ingresosUsuario->setIdUsuario($usuario->getId());
-        $ingresosUsuario->setNombreEmpresa($_POST['nombre_empresa']);
-        $ingresosUsuario->setTipoComprobanteIngreso($_POST['tipo_comprobante']);
-        $ingresosUsuario->setSalarioBrutoMensual($_POST['salario_bruto_mensual']);
-        $ingresosUsuario->setSalarioNetoMensual($_POST['salario_neto_mensual']);
-        $ingresosUsuario->setTipoEmpleo($_POST['tipo_empleo']);
-        $ingresosUsuario->setFechaInicio($fecha_inicio_trabajo->format('Y-m-d'));
-        if($is_update == 1 && $id_usuario > 0){
-            $ingresosUsuario->updateById($id_usuario);
-        }else{
-            $ingresosUsuario->save();
-        }
-
-        $solicitud = new Solicitud();
-        $solicitud->setFolio( uniqid('',true).rand(1,99));
-        $solicitud->setFechaRegistro($now->format('Y-m-d H:i:s'));
-        $solicitud->setTipoTramite($_POST['tipo_tramite']);
-        $solicitud->setMontoSolicitado($_POST['monto']);
-        $solicitud->setPlazoSolicitado($_POST['plazo']);
-        $solicitud->setIdUsuario($usuario->getId());
-        if($is_update == 1 && $id_usuario > 0){
-            $solicitud->updateById($id_usuario);
-        }else{
-            $solicitud->save();
-        }
+        echo json_encode($data);
     }
 
     public function index(){
