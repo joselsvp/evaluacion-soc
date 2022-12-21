@@ -81,12 +81,12 @@ require_once 'nav.php' ?>
                 <input type="email" id="correo" name="correo-cliente" value="<?= isset($datos_usuario['correo']) ? $datos_usuario['correo'] : '' ?>" placeholder="Ingresa correo electrónico" required>
             </div>
             <div class="input-box">
-                <span class="details">Edad</span>
-                <input type="number" id="edad" name="edad-cliente" value="<?= isset($datos_usuario['edad']) ? $datos_usuario['edad'] : '' ?>" placeholder="Ingresa edad" required>
-            </div>
-            <div class="input-box">
                 <span class="details">Fecha de nacimiento</span>
                 <input type="date" id="fecha-nacimiento" value="<?= isset($datos_usuario['fecha_nacimiento']) ? $datos_usuario['fecha_nacimiento'] : '' ?>" name="fecha-nacimiento-cliente" required>
+            </div>
+            <div class="input-box">
+                <span class="details">Edad</span>
+                <input type="number" id="edad" name="edad-cliente" value="<?= isset($datos_usuario['edad']) ? $datos_usuario['edad'] : '' ?>"  readonly style="background: lightgray">
             </div>
             <div class="input-box">
                 <span class="details">CURP</span>

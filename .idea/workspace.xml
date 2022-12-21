@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="38a42d7d-342f-402a-8c30-71cd453cfc00" name="Changes" comment="add: load content states and municipalities">
+    <list default="true" id="38a42d7d-342f-402a-8c30-71cd453cfc00" name="Changes" comment="update: validations to load content of municipalities by state id">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Solicitud.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Solicitud.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/FormRegistro.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/FormRegistro.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +31,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/JOSE/Desktop/soc-evaluacion",
+    "last_opened_file_path": "M:/mis_rentas/MISRENTAS2-MISRENTAS-WEBSCRIPTS",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -57,7 +57,7 @@
       <workItem from="1671507267701" duration="8259000" />
       <workItem from="1671552448550" duration="6176000" />
       <workItem from="1671562697694" duration="43085000" />
-      <workItem from="1671634002425" duration="1313000" />
+      <workItem from="1671634002425" duration="3803000" />
     </task>
     <task id="LOCAL-00001" summary="add: form register users">
       <created>1671583024984</created>
@@ -129,7 +129,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671617552660</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="update: validations to load content of municipalities by state id">
+      <created>1671635465480</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1671635465480</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -154,6 +161,7 @@
     <MESSAGE value="add: sweetalert2&#10;&#10;add: validation fields" />
     <MESSAGE value="add: validations to return response register" />
     <MESSAGE value="add: load content states and municipalities" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: load content states and municipalities" />
+    <MESSAGE value="update: validations to load content of municipalities by state id" />
+    <option name="LAST_COMMIT_MESSAGE" value="update: validations to load content of municipalities by state id" />
   </component>
 </project>

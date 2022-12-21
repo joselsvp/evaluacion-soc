@@ -1,15 +1,40 @@
 window.addEventListener('DOMContentLoaded', (event) => {
     const send_data = document.querySelector('.send_data_form');
+    const fecha_nacimiento = document.querySelector('#fecha-nacimiento');
+
+    const CASA = 1;
+    const AUTO = 2;
+    const PRESTAMO = 3;
+    const TARJETA_CREDITO = 4;
+
+    const MONTO_CASA = 200000;
+    const MONTO_AUTO = 100000;
+    const MONTO_PRESTAMO = 50000;
+    const MONTO_TARJETA_CREDITO = 20000;
 
     let id_usuario = document.querySelector(".send_data_form").getAttribute("id-usuario");
     let is_update = document.querySelector(".send_data_form").getAttribute("is-update");
+    let edad = 0;
 
     if(!(is_update == 1 && id_usuario > 0)){
         document.querySelector("#dot-1").checked = true;
     }
 
+    fecha_nacimiento.addEventListener('change', function (){
+        edad = calcularEdad(document.querySelector("#fecha-nacimiento").value);
+
+        document.querySelector("#edad").value = edad;
+    });
+
     send_data.addEventListener('click', function () {
-        let formData = new FormData()
+        let formData = new FormData();
+
+        let validarMontoMax = validarMontoMaxPorTipoDestino(parseFloat(document.querySelector("#monto").value) , parseInt(document.querySelector("#tipo_tramite").value));
+
+        if(!validarMontoMax){
+            return false;
+        }
+
 
         if(vacio("#tipo_tramite", "El campo tipo trámite") || vacio("#monto", "El campo monto") || vacio("#plazo", "El campo plazo") ||
             vacio("#nombre", "El campo nombre(s)") || vacio("#apellido", "El campo apellido(s)") || vacio("#correo", "El campo correo") ||
@@ -19,6 +44,17 @@ window.addEventListener('DOMContentLoaded', (event) => {
             vacio("#salario_bruto_mensual", "El campo salario bruto mensual") || vacio("#salario_neto_mensual", "El campo salario neto mensual") || vacio("#cod_postal", "El campo código postal") ||
             vacio("#estado", "El campo estado") || vacio("#municipio", "El campo municipio") || vacio("#calle", "El campo calle")){
             return false;
+        }
+
+
+        if(document.querySelector("#edad").value < 18){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: "El solicitantes debe ser mayor de edad",
+                showConfirmButton: false,
+                timer: 1000
+            })
         }
 
         formData.append("id_usuario", id_usuario);
@@ -95,6 +131,89 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 showConfirmButton: false,
                 timer: 1000
             })
+            return false;
+        }
+    }
+
+    function calcularEdad(fecha) {
+        var hoy = new Date();
+        var cumpleanos = new Date(fecha);
+        var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+        var m = hoy.getMonth() - cumpleanos.getMonth();
+
+        if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+            edad--;
+        }
+
+        return edad;
+    }
+    function validarMontoMaxPorTipoDestino(monto, destino) {
+        console.log(monto, destino)
+        switch (destino){
+            case CASA:
+                if(monto > MONTO_CASA){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: "El monto máximo a solictar para el destino CASA es de " + MONTO_CASA,
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    return false;
+                }else{
+                    return true;
+                }
+            case AUTO:
+                if(monto > MONTO_AUTO){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: "El monto máximo a solictar para el destino AUTO es de " + MONTO_AUTO,
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    return false;
+                }else{
+                    return true;
+                }
+            case PRESTAMO:
+                console.log("aa")
+
+                if(monto > MONTO_PRESTAMO){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: "El monto máximo a solictar para el destino PRÉSTAMO es de " + MONTO_PRESTAMO,
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    return false;
+                }else{
+                    return true;
+                }
+            case TARJETA_CREDITO:
+                if(monto > MONTO_TARJETA_CREDITO){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: "El monto máximo a solictar para el destino TARJETA DE CRÉDITO es de " + MONTO_TARJETA_CREDITO,
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    return false;
+                }
+                else{
+                    return true;
+                }
+                default:
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: "No se ha identificado el tipo de destino",
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+                break;
         }
     }
 
