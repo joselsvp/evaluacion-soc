@@ -55,10 +55,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
         })
             .then((resp) => resp.json())
             .then(function (response) {
+                var folio = '';
+                if (response.folio != ''){
+                    folio = "\n con el folio: " + response.folio;
+                }
                 if(response.type == 'success'){
                     Swal.fire({
                         icon: response.type,
-                        title: response.message + "\n con el folio: " + response.folio,
+                        title: response.message + folio,
                         showConfirmButton: true,
                     }).then((result) => {
                         /* Read more about isConfirmed, isDenied below */
@@ -106,6 +110,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
         })
             .then((resp) => resp.json())
             .then(function (response) {
+                document.getElementById("municipio").insertAdjacentHTML('beforeend',
+                    `<option value = "0" disabled selected>Seleccione un municipio</option>>`
+                )
                 response.forEach(element =>
                     document.getElementById("municipio").insertAdjacentHTML('beforeend',
                         `<option value = "${element.id_municipio}">${element.nombre_municipio}</option>>`
@@ -114,7 +121,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
             })
     }
 
-    document.getElementById("municipio").options.length = 0;
+    if(!(is_update == 1 && id_usuario > 0)){
+        document.getElementById("municipio").options.length = 0;
+        document.getElementById("municipio").insertAdjacentHTML('beforeend',
+            `<option value = "0" disabled selected>Seleccione un municipio</option>>`
+        )
+    }
+
 
     document.querySelector("#estado").addEventListener('click', function () {
         document.getElementById("municipio").options.length = 0;
