@@ -12,6 +12,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const MONTO_PRESTAMO = 50000;
     const MONTO_TARJETA_CREDITO = 20000;
 
+    const MONTO_CASA_INGRESOS_MIN_NETOS = 50000;
+    const MONTO_AUTO_INGRESOS_MIN_NETOS = 30000;
+    const MONTO_PRESTAMO_INGRESOS_MIN_NETOS = 20000;
+    const MONTO_TARJETA_CREDITO_INGRESOS_MIN_NETOS = 20000;
+
     let id_usuario = document.querySelector(".send_data_form").getAttribute("id-usuario");
     let is_update = document.querySelector(".send_data_form").getAttribute("is-update");
     let edad = 0;
@@ -41,6 +46,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
             return false;
         }
 
+        let validarIngresosMinimo = validarIngresos(document.querySelector("#salario_neto_mensual").value ,  parseInt(document.querySelector("#tipo_tramite").value));
+
+        if(!validarIngresosMinimo){
+            return false;
+        }
 
         if(vacio("#tipo_tramite", "El campo tipo trámite") || vacio("#monto", "El campo monto") || vacio("#plazo", "El campo plazo") ||
             vacio("#nombre", "El campo nombre(s)") || vacio("#apellido", "El campo apellido(s)") || vacio("#correo", "El campo correo") ||
@@ -154,14 +164,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
         return edad;
     }
     function validarMontoMaxPorTipoDestino(monto, destino) {
-        console.log(monto, destino)
         switch (destino){
             case CASA:
                 if(monto > MONTO_CASA){
                     Swal.fire({
                         position: 'top-end',
                         icon: 'error',
-                        title: "El monto máximo a solictar para el destino CASA es de " + MONTO_CASA,
+                        title: "El monto máximo a solicitar para el destino CASA es de " + MONTO_CASA,
                         showConfirmButton: false,
                         timer: 1000
                     })
@@ -174,7 +183,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                     Swal.fire({
                         position: 'top-end',
                         icon: 'error',
-                        title: "El monto máximo a solictar para el destino AUTO es de " + MONTO_AUTO,
+                        title: "El monto máximo a solicitar para el destino AUTO es de " + MONTO_AUTO,
                         showConfirmButton: false,
                         timer: 1000
                     })
@@ -183,13 +192,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
                     return true;
                 }
             case PRESTAMO:
-                console.log("aa")
-
                 if(monto > MONTO_PRESTAMO){
                     Swal.fire({
                         position: 'top-end',
                         icon: 'error',
-                        title: "El monto máximo a solictar para el destino PRÉSTAMO es de " + MONTO_PRESTAMO,
+                        title: "El monto máximo a solicitar para el destino PRÉSTAMO es de " + MONTO_PRESTAMO,
                         showConfirmButton: false,
                         timer: 1000
                     })
@@ -202,7 +209,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                     Swal.fire({
                         position: 'top-end',
                         icon: 'error',
-                        title: "El monto máximo a solictar para el destino TARJETA DE CRÉDITO es de " + MONTO_TARJETA_CREDITO,
+                        title: "El monto máximo a solicitar para el destino TARJETA DE CRÉDITO es de " + MONTO_TARJETA_CREDITO,
                         showConfirmButton: false,
                         timer: 1000
                     })
@@ -222,6 +229,74 @@ window.addEventListener('DOMContentLoaded', (event) => {
             break;
         }
     }
+
+    function validarIngresos(monto_ingreso, destino) {
+        switch (destino){
+            case CASA:
+                if(monto_ingreso < MONTO_CASA_INGRESOS_MIN_NETOS){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: "El ingreso neto mínimo requerido es de " + MONTO_CASA_INGRESOS_MIN_NETOS,
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    return false;
+                }else{
+                    return true;
+                }
+            case AUTO:
+                if(monto_ingreso < MONTO_AUTO_INGRESOS_MIN_NETOS){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: "El ingreso neto mínimo requerido es de " + MONTO_CASA_INGRESOS_MIN_NETOS,
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    return false;
+                }else{
+                    return true;
+                }
+            case PRESTAMO:
+                if(monto_ingreso < MONTO_PRESTAMO_INGRESOS_MIN_NETOS){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: "El ingreso neto mínimo requerido es de " + MONTO_PRESTAMO_INGRESOS_MIN_NETOS,
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    return false;
+                }else{
+                    return true;
+                }
+            case TARJETA_CREDITO:
+                if(monto_ingreso < MONTO_TARJETA_CREDITO_INGRESOS_MIN_NETOS){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: "El ingreso neto mínimo requerido es de " + MONTO_TARJETA_CREDITO_INGRESOS_MIN_NETOS,
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            default:
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: "No se ha identificado el tipo de destino",
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+                break;
+        }
+    }
+
 
     function municipios(id_estado){
         let formDataMunicipios = new FormData();
@@ -247,7 +322,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function validarEmail(valor) {
-        console.log(valor)
         var validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
 
         if (!validEmail.test(valor)){
