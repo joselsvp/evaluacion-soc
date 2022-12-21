@@ -48,7 +48,7 @@ class FormController{
         $ingresosUsuario->save();
 
         $solicitud = new Solicitud();
-        $solicitud->setFolio(332);
+        $solicitud->setFolio( uniqid('',true).rand(1,99));
         $solicitud->setFechaRegistro($now->format('Y-m-d H:i:s'));
         $solicitud->setTipoTramite($_POST['tipo_tramite']);
         $solicitud->setMontoSolicitado($_POST['monto']);
@@ -65,6 +65,23 @@ class FormController{
         $municipios = (new Municipio())->findAll();
 
         require_once 'views/FormRegistro.php';
+    }
+
+    public function show(){
+        $isEdit = true;
+        $tipo_tramites = (new TipoTramite())->findAll();
+        $tipo_empleo = (new TipoEmpleo())->findAll();
+        $tipo_comprobante_ingresos = (new TipoComprobanteIngreso())->findAll();
+        $estados = (new Estado())->findAll();
+        $municipios = (new Municipio())->findAll();
+
+        if(isset($_GET['id'])){
+            $solicitudUsuario = (new Solicitud())->getFormByUserId(base64_decode($_GET['id']));
+            if(!empty($solicitudUsuario)){
+                require_once 'views/FormRegistro.php';
+            }
+        }
+
     }
 
 }

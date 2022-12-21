@@ -25,7 +25,7 @@ require_once 'nav.php';
                 <td><?= $user['nombre_completo']?></td>
                 <td><?= $user['tipo_tramite']?></td>
                 <td><?= $user['fecha_registro']?></td>
-                <td><a class="button-edit-user" href="/usuario/show/<?=$user['id']?>">Editar</a></td>
+                <td><a class="button-edit-user" href="<?=base_url?>form/show?id=<?=base64_encode($user['id_usuario'])?>">Editar</a></td>
             </tr>
         <?php
         } ?>

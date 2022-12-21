@@ -137,7 +137,7 @@ class Solicitud{
     }
 
     public function getRegisteredApplicants(){
-        $sql = 'select s.id, s.folio, CONCAT(u.nombre, " ", u.apellido) AS nombre_completo, tpt.nombre as tipo_tramite, s.fecha_registro from solicitudes s 
+        $sql = 'select s.id_usuario, s.folio, CONCAT(u.nombre, " ", u.apellido) AS nombre_completo, tpt.nombre as tipo_tramite, s.fecha_registro from solicitudes s 
                 inner join usuario u on u.id = s.id_usuario
                 inner join tipo_tramite tpt on tpt.id = s.tipo_tramite
                 order by s.fecha_registro desc';
@@ -147,5 +147,20 @@ class Solicitud{
         $statement->setFetchMode(\PDO::FETCH_ASSOC);
         $statement->execute();
         return $statement->fetchAll();
+    }
+
+    public function getFormByUserId($user_id){
+        $sql = 'select s.*, u.*, iu.*, cm.id_cat_estado from solicitudes s 
+                inner join usuario u on u.id = s.id_usuario
+                inner join ingresos_usuario iu on iu.id_usuario = s.id_usuario
+                inner join cat_municipio cm on cm.id = u.id_cat_municipio
+                where s.id_usuario = :user_id';
+
+        $statement = Connection::getConnection()->prepare($sql);
+
+        $statement->setFetchMode(\PDO::FETCH_ASSOC);
+        $statement->bindParam(':user_id', $user_id);
+        $statement->execute();
+        return $statement->fetch();
     }
 }
