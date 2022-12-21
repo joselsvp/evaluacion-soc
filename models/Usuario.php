@@ -239,4 +239,18 @@ class Usuario{
 
         return "Se ha guardado el usuario";
     }
+
+    public function updateById($id){
+        $sql = "update  usuario set nombre = '{$this->getNombre()}',apellido = '{$this->getApellido()}',
+                             edad = '{$this->getEdad()}',fecha_nacimiento = '{$this->getFechaNacimiento()}',
+                             curp = '{$this->getCurp()}',sexo = '{$this->getSexo()}',correo = '{$this->getCorreo()}',sexo = '{$this->getSexo()}',
+                             codigo_postal = '{$this->getCodigoPostal()}',calle = '{$this->getCalle()}',id_cat_municipio = '{$this->getIdCatMunicipio()}',
+                             fecha_actualizacion = '{$this->getFechaActualizacion()}'where id = :id";
+
+        $statement = Connection::getConnection()->prepare($sql);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+
+        return "Se ha actualizado el registro";
+    }
 }

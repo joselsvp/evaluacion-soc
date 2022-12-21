@@ -5,9 +5,12 @@ $getTipoComprobanteIngresos = $tipo_comprobante_ingresos;
 $getEstados = $estados;
 $getMunicipios = $municipios;
 $datos_usuario = array();
-
+$id_usuario = 0;
+$is_update = 0;
 if(isset($isEdit)){
     $datos_usuario = $solicitudUsuario;
+    $id_usuario = $datos_usuario['id_usuario'];
+    $is_update = 1;
 }
 
 require_once 'nav.php'
@@ -208,7 +211,7 @@ require_once 'nav.php'
             </div>
         </div>
         <div class="button">
-            <input type="button" class="send_data_form" value="Registrar">
+            <input type="button" class="send_data_form" value="Registrar" id-usuario = '<?= $id_usuario ?>' is-update = '<?= $isEdit ?>'>
         </div>
     </div>
 </div>

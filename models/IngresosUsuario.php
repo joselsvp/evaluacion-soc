@@ -155,4 +155,16 @@ class IngresosUsuario{
 
         return "Se ha guardado el registro";
     }
+
+    public function updateById($id){
+        $sql = "update  ingresos_usuario set nombre_empresa = '{$this->getNombreEmpresa()}',tipo_comprobante_ingreso = '{$this->getTipoComprobanteIngreso()}',
+                             salario_bruto_mensual = '{$this->getSalarioBrutoMensual()}',salario_neto_mensual = '{$this->getSalarioNetoMensual()}',
+                             tipo_empleo = '{$this->getTipoEmpleo()}',fecha_inicio = '{$this->getFechaInicio()}' where id_usuario = :id";
+
+        $statement = Connection::getConnection()->prepare($sql);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+
+        return "Se ha actualizado el registro";
+    }
 }

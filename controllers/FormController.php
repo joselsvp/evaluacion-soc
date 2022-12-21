@@ -19,6 +19,9 @@ class FormController{
     public function save(){
         $now = new DateTime();
         $fecha_nacimiento = new DateTime($_POST['fecha_nacimiento']);
+        $fecha_inicio_trabajo = new DateTime($_POST['fecha_inicio_trabajo']);
+        $is_update = $_POST['is_update'];
+        $id_usuario = $_POST['id_usuario'];
 
         $usuario = new Usuario();
         $usuario->setNombre($_POST['nombre_cliente']);
@@ -27,25 +30,32 @@ class FormController{
         $usuario->setCorreo($_POST['correo']);
         $usuario->setFechaNacimiento($fecha_nacimiento->format('Y-m-d'));
         $usuario->setCurp($_POST['curp_cliente']);
-        $usuario->setSexo(1);
+        $usuario->setSexo($_POST['genero']);
         $usuario->setCodigoPostal($_POST['cod_postal']);
         $usuario->setCalle($_POST['calle']);
         $usuario->setIdCatMunicipio($_POST['municipio']);
         $usuario->setFechaRegistro($now->format('Y-m-d'));
         $usuario->setFechaActualizacion($now->format('Y-m-d'));
-        $usuario->save();
+        if($is_update == 1 && $id_usuario > 0){
+            $usuario->updateById($id_usuario);
+        }else{
+            $usuario->save();
+        }
 
         $ingresosUsuario = new IngresosUsuario();
 
         $ingresosUsuario->setIdUsuario($usuario->getId());
-        $ingresosUsuario->setId(323);
         $ingresosUsuario->setNombreEmpresa($_POST['nombre_empresa']);
         $ingresosUsuario->setTipoComprobanteIngreso($_POST['tipo_comprobante']);
         $ingresosUsuario->setSalarioBrutoMensual($_POST['salario_bruto_mensual']);
         $ingresosUsuario->setSalarioNetoMensual($_POST['salario_neto_mensual']);
         $ingresosUsuario->setTipoEmpleo($_POST['tipo_empleo']);
-        $ingresosUsuario->setFechaInicio($now->format('Y-m-d'));
-        $ingresosUsuario->save();
+        $ingresosUsuario->setFechaInicio($fecha_inicio_trabajo->format('Y-m-d'));
+        if($is_update == 1 && $id_usuario > 0){
+            $ingresosUsuario->updateById($id_usuario);
+        }else{
+            $ingresosUsuario->save();
+        }
 
         $solicitud = new Solicitud();
         $solicitud->setFolio( uniqid('',true).rand(1,99));
@@ -54,7 +64,11 @@ class FormController{
         $solicitud->setMontoSolicitado($_POST['monto']);
         $solicitud->setPlazoSolicitado($_POST['plazo']);
         $solicitud->setIdUsuario($usuario->getId());
-        $solicitud->save();
+        if($is_update == 1 && $id_usuario > 0){
+            $solicitud->updateById($id_usuario);
+        }else{
+            $solicitud->save();
+        }
     }
 
     public function index(){

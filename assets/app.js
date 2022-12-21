@@ -2,6 +2,11 @@ const send_data = document.querySelector('.send_data_form');
 
 send_data.addEventListener('click', function () {
     let formData = new FormData()
+    let id_usuario = document.querySelector(".send_data_form").getAttribute("id-usuario");
+    let is_update = document.querySelector(".send_data_form").getAttribute("is-update");
+
+    formData.append("id_usuario", id_usuario);
+    formData.append("is_update", is_update);
     formData.append("tipo_tramite", document.querySelector("#tipo_tramite").value);
     formData.append("monto", document.querySelector("#monto").value);
     formData.append("plazo", document.querySelector("#plazo").value);

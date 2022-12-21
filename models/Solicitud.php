@@ -136,6 +136,18 @@ class Solicitud{
         return "Se ha guardado el registro";
     }
 
+    public function updateById($id){
+        $sql = "update  solicitudes set folio = '{$this->getFolio()}',fecha_registro = '{$this->getFechaRegistro()}',
+                             tipo_tramite = '{$this->getTipoTramite()}',monto_solicitado = '{$this->getMontoSolicitado()}',
+                             plazo_solicitado = '{$this->getPlazoSolicitado()}' where id_usuario = :id";
+
+        $statement = Connection::getConnection()->prepare($sql);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+
+        return "Se ha actualizado el registro";
+    }
+
     public function getRegisteredApplicants(){
         $sql = 'select s.id_usuario, s.folio, CONCAT(u.nombre, " ", u.apellido) AS nombre_completo, tpt.nombre as tipo_tramite, s.fecha_registro from solicitudes s 
                 inner join usuario u on u.id = s.id_usuario
